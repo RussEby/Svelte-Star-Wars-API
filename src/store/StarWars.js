@@ -17,7 +17,18 @@ const StarWarsStore = {
                 return response.json();
                 });
         return apicall;
-        }
+        },
+    getByURL: (URLString) => {
+                let apicall = fetch(URLString)
+                .then(function(response) {
+                        if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                        })
+                .then(data => data);
+                return apicall;
+                },
 };
 
 export default StarWarsStore;

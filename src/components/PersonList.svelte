@@ -1,5 +1,6 @@
 <script>
     import StarWarsStore from '../store/StarWars';
+    import Person from './Person.svelte';
     let allPersons = StarWarsStore.getAllPersons();
 </script>
 
@@ -7,17 +8,18 @@
     {#await allPersons}
         <p>Loading......</p>
     {:then persons}
-        <!-- {JSON.stringify(persons)} -->
-
-        <p>{JSON.stringify(persons.count)}</p>
-        <p>{JSON.stringify(persons.next)}</p>
-        <p>{JSON.stringify(persons.previous)}</p>
-        <p>{JSON.stringify(persons.results)}</p>
-        <p>{JSON.stringify(persons.results[0])}</p>
-        
+        {#each persons.results as person}
+            <Person {person}/>
+        {/each}
     {:catch error}
         <p>Whoops, there was an error! {JSON.stringify(error)} </p>
     {/await}
 </div>
 
-<style></style>
+<style>
+    .personList {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+</style>
