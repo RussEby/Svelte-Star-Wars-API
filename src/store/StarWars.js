@@ -29,6 +29,20 @@ const StarWarsStore = {
                 .then(data => data);
                 return apicall;
                 },
+    getMovies: (movies) => {
+                        let apicall = Promise.all(movies.map(URLString =>
+                                fetch(URLString)
+                                    .then(function(response) {
+                                        if (!response.ok) {
+                                            throw new Error(`HTTP error! status: ${response.status}`);
+                                        }
+                                        return response.json();
+                                        })
+                                    ))
+                            .then(texts => { return texts });
+                
+                        return apicall;
+                    }
 };
 
 export default StarWarsStore;
